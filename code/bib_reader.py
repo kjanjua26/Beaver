@@ -51,8 +51,3 @@ class Parser:
         bib_data_url = str(bib_data[0]).split('href="')[-1].split('">')[0].replace('amp;', '')
         citation_bib = self.read_page(bib_data_url)
         print(citation_bib)
-
-
-if __name__ == "__main__":
-    p1 = Parser("Look, listen and learn")
-    p1.recover_bib()
