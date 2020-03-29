@@ -34,9 +34,10 @@ class Parser:
         base_url = 'https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=' + str('+'.join(self.paper_name.split(' '))) + '&oq='
         page = self.read_page(base_url)
         cluster_id = list(page.find_all('a', attrs={'class': 'gs_nph'}))
-        bib_id = page.find_all('a', attrs={'class': 'gs_or_nvi'})
+        bib_id = page.find_all('div', attrs={'class': 'gs_r gs_or gs_scl'})
         if len(bib_id) > 0:
-            bib_id = str(bib_id[0]).split('q=cache:')[-1].split(':scholar')[0]
+            bib_id = str(bib_id[0]).split('<div class="gs_r gs_or gs_scl" ')[-1].split(' data-did="')[0] \
+                                    .split('data-cid="')[-1].replace('"', '')
         else:
             print('Google Blocking!')
         cluster_id = str(cluster_id[-1]).split('&')[0].split('?cluster=')[-1]
@@ -47,9 +48,11 @@ class Parser:
         base_bib_url = 'https://scholar.google.com/scholar?q=info:{}:scholar.google.com/&output=cite&scirp=0&hl=en'.format(bib_id)
         page = self.read_page(base_bib_url)
         bib_data = page.find_all('a', attrs={'class': 'gs_citi'})
-        print(str(bib_data[0]).split(''))
+        bib_data_url = str(bib_data[0]).split('href="')[-1].split('">')[0].replace('amp;', '')
+        citation_bib = self.read_page(bib_data_url)
+        print(citation_bib)
 
 
 if __name__ == "__main__":
-    p1 = Parser("Deep Latent Space Learning for Cross modal Mapping of Audio and Visual Signals")
+    p1 = Parser("Look, listen and learn")
     p1.recover_bib()
