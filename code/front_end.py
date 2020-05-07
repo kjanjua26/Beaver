@@ -7,13 +7,14 @@ from tkinter import ttk
 import tkinter as tk
 from tkinter import filedialog
 from PIL import ImageTk,Image  
-
+from urllib.request import urlopen
+from io import BytesIO
 
 class Starter(Tk):
     def __init__(self, ):
         super(Starter, self).__init__()
         self.title("Beaver - The .bib Editor")
-        container = ttk.Frame(self)
+        container = ttk.Frame(self, height=800, width=800)
         container.pack(side="top", fill="both", expand = True)
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
@@ -36,10 +37,22 @@ class InitialPage(tk.Frame):
         super(InitialPage, self).__init__()
         tk.Frame.__init__(self, parent)
 
-        canvas = Canvas(self, width=300, height=300)      
-        canvas.pack()      
-        img = ImageTk.PhotoImage(Image.open("/Users/Janjua/Desktop/logo.png"))  
-        canvas.create_image(300,300, anchor=NW, image=img)
+        img_url = "https://i.ibb.co/tZQyyL1/logo.png"
+        loader_img = urlopen(img_url)
+        raw_img = loader_img.read()
+        loader_img.close()
+        load = Image.open(BytesIO(raw_img))
+        load = load.resize((500, 500), Image.ANTIALIAS)
+        render = ImageTk.PhotoImage(load)
+        img = Label(self, image=render)
+        img.image = render
+        img.pack()
+
+        self.description_label = Text(self, height=10, width=60, font='12')
+        self.description_label.insert(INSERT, "Beaver is a utility that automatically edits your .bib files with new papers as they are added to your LaTeX files.\nMade with <3 by KJ in sparetime.")
+        self.description_label.config(state=DISABLED)
+
+        self.description_label.pack()
 
         self.button_start = ttk.Button(self, text="Welcome to Beaver", command=lambda: controller.show_frame(TkinterRoot))
         self.button_start.pack()
