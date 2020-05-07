@@ -42,16 +42,17 @@ class InitialPage(tk.Frame):
         raw_img = loader_img.read()
         loader_img.close()
         load = Image.open(BytesIO(raw_img))
-        load = load.resize((500, 500), Image.ANTIALIAS)
+        load = load.resize((600, 600), Image.ANTIALIAS)
         render = ImageTk.PhotoImage(load)
         img = Label(self, image=render)
         img.image = render
         img.pack()
 
-        self.description_label = Text(self, height=10, width=60, font='12')
-        self.description_label.insert(INSERT, "Beaver is a utility that automatically edits your .bib files with new papers as they are added to your LaTeX files.\nMade with <3 by KJ in sparetime.")
+        self.description_label = Text(self, height=5, width=65, font='14')
+        self.description_label.insert(INSERT, "Beaver is a utility that automatically edits your .bib files.\nWith new papers as they are added to your LaTeX files.\nMade with <3 by KJ in sparetime.")
         self.description_label.config(state=DISABLED)
-
+        self.description_label.tag_configure("center", justify='center')
+        self.description_label.tag_add("center", "1.0", "end")
         self.description_label.pack()
 
         self.button_start = ttk.Button(self, text="Welcome to Beaver", command=lambda: controller.show_frame(TkinterRoot))
