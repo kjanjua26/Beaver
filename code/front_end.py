@@ -15,17 +15,17 @@ class TkinterRoot(Tk):
         self.frame = ttk.Frame(self)
         self.frame.pack()
 
-        self.label_text = Label(self.frame, text="Enter Paper Name")
+        self.label_text = ttk.Label(self.frame, text="Enter Paper Name")
         self.label_text.pack()
         self.textBox = Text(self.frame, height=2, width=100)
         self.textBox.pack()
 
-        self.label_bib_ret = Label(self.frame, text="Retrieved Bib For Paper")
+        self.label_bib_ret = ttk.Label(self.frame, text="Retrieved Bib For Paper")
         self.label_bib_ret.pack()
         self.bib_ret_box = Text(self.frame, height=20, width=100)
         self.bib_ret_box.pack()
 
-        self.label_text_bib = Label(self.frame, text="Read .bib File Contents")
+        self.label_text_bib = ttk.Label(self.frame, text="Read .bib File Contents")
         self.label_text_bib.pack()
         self.outbox = Text(self.frame, height=20, width=100)
         self.outbox.pack()
