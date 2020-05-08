@@ -71,7 +71,7 @@ class TkinterRoot(tk.Frame):
 
         self.label_bib_ret = ttk.Label(self, text="Retrieved Bib For Paper")
         self.label_bib_ret.pack()
-        self.bib_ret_box = Text(self, height=20, width=100)
+        self.bib_ret_box = Text(self, height=10, width=100)
         self.bib_ret_box.pack()
 
         self.label_text_bib = ttk.Label(self, text="Read .bib File Contents")
@@ -85,8 +85,11 @@ class TkinterRoot(tk.Frame):
         self.button_change = ttk.Button(self, text="Save", command=self.saveFile())
         self.button_change.pack()
         
-        self.button_retrieve = ttk.Button(self, text="Retrieve Bib", command=self.saveFile())
+        self.button_retrieve = ttk.Button(self, text="Retrieve Bib", command=self.retrieveBib)
         self.button_retrieve.pack()
+
+        self.refresh_button = ttk.Button(self, text="Refresh", command=self.refresh_data)
+        self.refresh_button.pack()
 
     def fileDialog(self):
         self.filename = filedialog.askopenfilename(initialdir="/", title="Select a .bib file", filetypes=(("bib", "*.bib"), ("All Files", "*.*")))
@@ -97,6 +100,15 @@ class TkinterRoot(tk.Frame):
         print(self.file_name_updated)
         
     def saveFile(self):
+        pass
+
+    def retrieveBib(self):
+        paper_name = self.textBox.get("1.0", END).split('\n')[0]
+        bib_parser = Parser(paper_name)
+        retrieved_bib = bib_parser.recover_bib()
+        self.bib_ret_box.insert(INSERT, retrieved_bib)
+    
+    def refresh_data(self):
         pass
 
 tk = Starter()

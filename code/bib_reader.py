@@ -18,6 +18,7 @@ class Parser:
         self.paper_name = paper_name
 
     def read_page(self, base_url):
+        """ Reads the page given any URL and returns the extracted HTML"""
         header = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) ' 
                       'AppleWebKit/537.11 (KHTML, like Gecko) '
                       'Chrome/23.0.1271.64 Safari/537.11',
@@ -31,6 +32,7 @@ class Parser:
         return BeautifulSoup(webpage, 'html.parser')
 
     def get_cluster_and_bib_id(self):
+        """ Given the read page, returns the bib ID and cluster ID"""
         base_url = 'https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=' + str('+'.join(self.paper_name.split(' '))) + '&oq='
         page = self.read_page(base_url)
         cluster_id = list(page.find_all('a', attrs={'class': 'gs_nph'}))
@@ -50,4 +52,6 @@ class Parser:
         bib_data = page.find_all('a', attrs={'class': 'gs_citi'})
         bib_data_url = str(bib_data[0]).split('href="')[-1].split('">')[0].replace('amp;', '')
         citation_bib = self.read_page(bib_data_url)
-        print(citation_bib)
+        return citation_bib
+
+
