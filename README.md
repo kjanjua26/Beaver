@@ -1,4 +1,6 @@
 # Beaver
+[![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
+
 Beaver is a utility that automatically edits your .bib files with new papers as they are added to your LaTeX files.
 
 <img align="middle" src="https://i.ibb.co/2FhD1n2/beaver.png" alt="beaver">
