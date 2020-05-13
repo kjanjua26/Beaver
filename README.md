@@ -18,5 +18,24 @@ If you have to just use the code ```bib_reader.py``` which scraps the bibtex fil
     print(retrieved_bib)
 ```
 
+You can also retrieve the bibTex of papers you partially remember the name of. A few keywords (which appear in the title of the paper) and the matching can be done which results in the correct bib retrieval.
+
+```
+    # the actual paper name is: Imagenet classification with deep convolutional neural networks
+    # so we just type a few keywords we can remember from the top of our head
+    paper_name = "ImageNet Deep Classification" 
+    # call the recover_bib() method.
+    # the output would be: 
+    
+    @inproceedings{krizhevsky2012imagenet,
+          title={Imagenet classification with deep convolutional neural networks},
+          author={Krizhevsky, Alex and Sutskever, Ilya and Hinton, Geoffrey E},
+          booktitle={Advances in neural information processing systems},
+          pages={1097--1105},
+          year={2012}
+    }
+
+```
+
 ## License
 This is covered by the standard MIT License.
